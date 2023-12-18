@@ -1,19 +1,19 @@
 {
-   "max_open_trades":5,
-   "stake_currency":"BUSD",
-   "stake_amount":"unlimited",
+  "max_open_trades": 5,
+  "stake_currency": "USDT",
+  "stake_amount": 200,
    "tradable_balance_ratio":0.99,
-   "fiat_display_currency":"EUR",
+  "fiat_display_currency": "USD",
    "timeframe":"5m",
    "cancel_open_orders_on_exit":false,
    "unfilledtimeout":{
-      "buy":10,
-      "sell":30,
+      "entry": 10,
+      "exit": 30,
       "unit":"minutes"
    },
-   "bid_strategy":{
-      "price_side":"ask",
-      "ask_last_balance":0.0,
+  "exit_pricing": {
+    "price_side": "other",
+    "price_last_balance": 0.0,
       "use_order_book":false,
       "order_book_top":1,
       "check_depth_of_market":{
@@ -21,21 +21,21 @@
          "bids_to_ask_delta":1
       }
    },
-   "ask_strategy":{
+  "entry_pricing": {
       "price_side":"bid",
       "use_order_book":false,
       "order_book_min":1,
       "order_book_max":1,
-      "use_sell_signal":true,
-      "sell_profit_only":false,
-      "ignore_roi_if_buy_signal":false
+      "use_exit_signal": true,
+      "exit_profit_only": false,
+      "ignore_roi_if_entry_signal": false
    },
    "order_types": {
-		"buy": "limit",
-		"sell": "market",
-		"emergencysell": "market",
-		"forcebuy": "market",
-		"forcesell": "market",
+    "entry": "limit",
+    "exit": "market",
+    "emergency_exit": "market",
+    "force_entry": "market",
+    "force_exit": "market",
 		"stoploss": "market",
 		"stoploss_on_exchange": false
 	},
@@ -68,7 +68,7 @@
    "pairlists": [
 		{
 			"method": "VolumePairList",
-			"number_assets": 100,
+      "number_assets": 60,
 			"sort_key": "quoteVolume",
 			"refresh_period": 1800
 		},
@@ -91,7 +91,7 @@
 		{"method": "PerformanceFilter"},
 		{
 			"method": "VolumePairList",
-			"number_assets": 60,
+      "number_assets": 40,
 			"sort_key": "quoteVolume"
 		}
 	],

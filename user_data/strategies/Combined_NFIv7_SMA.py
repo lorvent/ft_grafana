@@ -8,7 +8,7 @@ from pandas import DataFrame, Series
 from functools import reduce
 from freqtrade.persistence import Trade
 from datetime import datetime, timedelta
-from technical.indicators import zema
+from technical.indicators import dema
 
 
 ###########################################################################################################
@@ -25,9 +25,9 @@ from technical.indicators import zema
 ##   Highly recommended to blacklist leveraged tokens (*BULL, *BEAR, *UP, *DOWN etc).                    ##
 ##   Ensure that you don't override any variables in you config.json. Especially                         ##
 ##   the timeframe (must be 5m).                                                                         ##
-##     use_sell_signal must set to true (or not set at all).                                             ##
-##     sell_profit_only must set to false (or not set at all).                                           ##
-##     ignore_roi_if_buy_signal must set to true (or not set at all).                                    ##
+##     use_exit_signal must set to true (or not set at all).                                             ##
+##     exit_profit_only must set to false (or not set at all).                                           ##
+##     ignore_roi_if_entry_signal must set to true (or not set at all).                                    ##
 ##                                                                                                       ##
 ###########################################################################################################
 ##               DONATIONS                                                                               ##
@@ -67,9 +67,9 @@ class Combined_NFIv7_SMA(IStrategy):
     process_only_new_candles = True
 
     # These values can be overridden in the "ask_strategy" section in the config.
-    use_sell_signal = True
-    sell_profit_only = False
-    ignore_roi_if_buy_signal = True
+    use_exit_signal = True
+    exit_profit_only = False
+    ignore_roi_if_entry_signal = True
 
     # Number of candles the strategy requires before producing valid signals
     startup_candle_count: int = 400
@@ -887,7 +887,7 @@ class Combined_NFIv7_SMA(IStrategy):
     buy_24_rsi_max = DecimalParameter(26.0, 60.0, default=60.0, space='buy', decimals=1, optimize=False, load=True)
     buy_24_rsi_1h_min = DecimalParameter(40.0, 90.0, default=66.9, space='buy', decimals=1, optimize=False, load=True)
 
-    buy_26_zema_low_offset = DecimalParameter(0.90, 0.99, default=0.93, space='buy', optimize=buy_26_parameters__optimize, load=True)
+    buy_26_dema_low_offset = DecimalParameter(0.90, 0.99, default=0.93, space='buy', optimize=buy_26_parameters__optimize, load=True)
 
     # Sell
 
@@ -1540,7 +1540,7 @@ class Combined_NFIv7_SMA(IStrategy):
         dataframe['chop']= qtpylib.chopiness(dataframe, 14)
 
         # Zero-Lag EMA
-        dataframe['zema'] = zema(dataframe, period=61)
+        dataframe['dema'] = dema(dataframe, period=61)
 
         # Dip protection
         dataframe['tpct_change_0']   = self.top_percent_change(dataframe,0)
@@ -2469,7 +2469,7 @@ class Combined_NFIv7_SMA(IStrategy):
         # Logic
         buy_26_logic = []
         buy_26_logic.append(reduce(lambda x, y: x & y, buy_26_protections))
-        buy_26_logic.append(dataframe['close'] < (dataframe['zema'] * self.buy_26_zema_low_offset.value))
+        buy_26_logic.append(dataframe['close'] < (dataframe['dema'] * self.buy_26_dema_low_offset.value))
         buy_26_logic.append(dataframe['volume'] > 0)
         # Populate
         dataframe.loc[:,'buy_26_trigger'] = reduce(lambda x, y: x & y, buy_26_logic)
