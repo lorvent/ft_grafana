@@ -4,9 +4,7 @@ volumes:
     grafana_data: {}    
 services:
   freqtrade1:
-    build:
-      context: .
-      dockerfile: "./docker/Dockerfile.custom"
+    image: freqtradeorg/freqtrade:2021.8
     container_name: freqtrade1
     restart: on-failure
     ports:
@@ -26,9 +24,7 @@ services:
       timeout: 4s
       retries: 3
   freqtrade2:
-    build:
-      context: .
-      dockerfile: "./docker/Dockerfile.custom"
+    image: freqtradeorg/freqtrade:2021.8
     container_name: freqtrade2
     restart: on-failure
     ports:
@@ -49,9 +45,8 @@ services:
       retries: 3
   freqtrade3:
     build:
-      context: .
-      dockerfile: "./docker/Dockerfile.custom"
-    container_name: freqtrade3
+      image: freqtradeorg/freqtrade:2021.8
+      container_name: freqtrade3
     restart: on-failure
     ports:
       - 7083:7083
