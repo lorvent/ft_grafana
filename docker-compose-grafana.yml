@@ -44,9 +44,8 @@ services:
       timeout: 4s
       retries: 3
   freqtrade3:
-    build:
-      image: freqtradeorg/freqtrade:2021.8
-      container_name: freqtrade3
+    image: freqtradeorg/freqtrade:2021.8
+    container_name: freqtrade3
     restart: on-failure
     ports:
       - 7083:7083
