@@ -5,13 +5,13 @@
    "tradable_balance_ratio":0.99,
   "fiat_display_currency": "USD",
    "timeframe":"5m",
-   "cancel_open_orders_on_exit":false,
+   "cancel_open_orders_on_sell":false,
    "unfilledtimeout":{
-      "entry": 10,
-      "exit": 30,
+      "buy": 10,
+      "sell": 30,
       "unit":"minutes"
    },
-  "exit_pricing": {
+  "sell_pricing": {
     "price_side": "other",
     "price_last_balance": 0.0,
       "use_order_book":false,
@@ -21,21 +21,21 @@
          "bids_to_ask_delta":1
       }
    },
-  "entry_pricing": {
+  "buy_pricing": {
       "price_side":"bid",
       "use_order_book":false,
       "order_book_min":1,
       "order_book_max":1,
-      "use_exit_signal": true,
-      "exit_profit_only": false,
-      "ignore_roi_if_entry_signal": false
+      "use_sell_signal": true,
+      "sell_profit_only": false,
+      "ignore_roi_if_buy_signal": false
    },
    "order_types": {
-    "entry": "limit",
-    "exit": "market",
-    "emergency_exit": "market",
-    "force_entry": "market",
-    "force_exit": "market",
+    "buy": "limit",
+    "sell": "market",
+    "emergency_sell": "market",
+    "force_buy": "market",
+    "force_sell": "market",
 		"stoploss": "market",
 		"stoploss_on_exchange": false
 	},
