@@ -575,7 +575,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(avg by(job)(freqtrade_fiat_balance{}))",
+          "expr": "sum(avg by(job)(freqtrade_crypto_balance{}))",
           "hide": true,
           "interval": "",
           "legendFormat": "kum",
@@ -583,7 +583,7 @@
         },
         {
           "exemplar": true,
-          "expr": "avg by(job)(freqtrade_fiat_balance{})",
+          "expr": "avg by(job)(freqtrade_crypto_balance{})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{strategy}}",
@@ -652,6 +652,7 @@
       "title": "Trades",
       "type": "bargauge"
     }
+
   ],
   "refresh": "1m",
   "schemaVersion": 30,
@@ -664,11 +665,11 @@
         "current": {
           "selected": true,
           "text": [
-            "freqtrade",
+            "freqtrade1",
             "freqtrade3"
           ],
           "value": [
-            "freqtrade",
+            "freqtrade1",
             "freqtrade3"
           ]
         },
