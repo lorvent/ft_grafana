@@ -11,6 +11,14 @@ scrape_configs:
       - targets:
         - "ftmetric2:7092"
   - job_name: freqtrade3
-    static_
+    static_configs:
       - targets:
         - "ftmetric3:7093"
+  - job_name: freqtrade4
+    static_configs:
+      - targets:
+        - "ftmetric4:7094"
+  - job_name: freqtrade5
+    static_configs:
+      - targets:
+        - "ftmetric5:7095"

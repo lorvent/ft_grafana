@@ -75,6 +75,50 @@ services:
       interval: 30s
       timeout: 4s
       retries: 3
+  freqtrade4:
+    image: freqtradeorg/freqtrade:2021.8
+    container_name: freqtrade4
+    restart: on-failure
+    ports:
+      - 7084:7084
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    command: >
+      trade 
+      --logfile /freqtrade/user_data/logs/freqtrade_4.log
+      --db-url sqlite:////freqtrade/user_data/dev_4.sqlite
+      --config /freqtrade/user_data/config.json
+      --config /freqtrade/user_data/dev_env/config_dev_4.json
+      --strategy Combined_NFIv7_SMA
+    depends_on:
+      - binance_proxy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 /freqtrade/scripts/rest_client.py --config /freqtrade/user_data/config.json --config /freqtrade/user_data/dev_env/config_dev_4.json ping | grep -q pong"]
+      interval: 30s
+      timeout: 4s
+      retries: 3
+  freqtrade5:
+    image: freqtradeorg/freqtrade:2021.8
+    container_name: freqtrade5
+    restart: on-failure
+    ports:
+      - 7085:7085
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    command: >
+      trade 
+      --logfile /freqtrade/user_data/logs/freqtrade_5.log
+      --db-url sqlite:////freqtrade/user_data/dev_5.sqlite
+      --config /freqtrade/user_data/config.json
+      --config /freqtrade/user_data/dev_env/config_dev_5.json
+      --strategy Combined_NFIv7_SMA
+    depends_on:
+      - binance_proxy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 /freqtrade/scripts/rest_client.py --config /freqtrade/user_data/config.json --config /freqtrade/user_data/dev_env/config_dev_5.json ping | grep -q pong"]
+      interval: 30s
+      timeout: 4s
+      retries: 3
   ftmetric1:
     image: ghcr.io/kamontat/ftmetric:v4.3.0
     container_name: ftmetric1
@@ -132,6 +176,46 @@ services:
       - freqtrade3
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7093/version"]
+      interval: 1m
+      timeout: 1s
+      retries: 3
+  ftmetric4:
+    image: ghcr.io/kamontat/ftmetric:v4.3.0
+    container_name: ftmetric4
+    restart: on-failure
+    ports:
+      - 7094:7094
+    environment:
+      - FTH_FREQTRADE__URL=http://freqtrade4:7084
+      - FTH_FREQTRADE__USERNAME=freqtrader
+      - FTH_FREQTRADE__PASSWORD=secret
+      - FTH_SERVER__PORT=7094
+      - FTH_FREQTRADE__CLUSTER=4A
+    command: --no-env-file
+    depends_on:
+      - freqtrade4
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7094/version"]
+      interval: 1m
+      timeout: 1s
+      retries: 3
+  ftmetric5:
+    image: ghcr.io/kamontat/ftmetric:v4.3.0
+    container_name: ftmetric5
+    restart: on-failure
+    ports:
+      - 7095:7095
+    environment:
+      - FTH_FREQTRADE__URL=http://freqtrade5:7085
+      - FTH_FREQTRADE__USERNAME=freqtrader
+      - FTH_FREQTRADE__PASSWORD=secret
+      - FTH_SERVER__PORT=7095
+      - FTH_FREQTRADE__CLUSTER=5A
+    command: --no-env-file
+    depends_on:
+      - freqtrade5
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7095/version"]
       interval: 1m
       timeout: 1s
       retries: 3
