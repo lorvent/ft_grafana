@@ -83,12 +83,15 @@ services:
       - 7084:7084
     volumes:
       - ./user_data:/freqtrade/user_data
+    environment:
+    - FREQTRADE__API_SERVER__LISTEN_PORT=7084
     command: >
       trade 
       --logfile /freqtrade/user_data/logs/freqtrade_4.log
       --db-url sqlite:////freqtrade/user_data/dev_4.sqlite
       --config /freqtrade/user_data/config.json
-      --config /freqtrade/user_data/dev_env/config_dev_4.json
+      --config /freqtrade/user_data/dev_env/config_dev_1.json
+      --config /freqtrade/user_data/dev_env/config_dev_sl10.json
       --strategy Combined_NFIv7_SMA
     depends_on:
       - binance_proxy
@@ -105,17 +108,120 @@ services:
       - 7085:7085
     volumes:
       - ./user_data:/freqtrade/user_data
+    environment:
+    - FREQTRADE__API_SERVER__LISTEN_PORT=7085
     command: >
       trade 
       --logfile /freqtrade/user_data/logs/freqtrade_5.log
       --db-url sqlite:////freqtrade/user_data/dev_5.sqlite
       --config /freqtrade/user_data/config.json
-      --config /freqtrade/user_data/dev_env/config_dev_5.json
+      --config /freqtrade/user_data/dev_env/config_dev_1.json
+      --config /freqtrade/user_data/dev_env/config_dev_sl20.json
       --strategy Combined_NFIv7_SMA
     depends_on:
       - binance_proxy
     healthcheck:
       test: ["CMD-SHELL", "python3 /freqtrade/scripts/rest_client.py --config /freqtrade/user_data/config.json --config /freqtrade/user_data/dev_env/config_dev_5.json ping | grep -q pong"]
+      interval: 30s
+      timeout: 4s
+      retries: 3
+  freqtrade6:
+    image: freqtradeorg/freqtrade:2021.8
+    container_name: freqtrade6
+    restart: on-failure
+    ports:
+      - 7086:7086
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    environment:
+    - FREQTRADE__API_SERVER__LISTEN_PORT=7086
+    command: >
+      trade 
+      --logfile /freqtrade/user_data/logs/freqtrade_6.log
+      --db-url sqlite:////freqtrade/user_data/dev_6.sqlite
+      --config /freqtrade/user_data/config.json
+      --config /freqtrade/user_data/dev_env/config_dev_2.json
+      --config /freqtrade/user_data/dev_env/config_dev_sl10.json
+      --strategy NostalgiaForInfinityV5MultiOffsetAndHO
+    depends_on:
+      - binance_proxy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 /freqtrade/scripts/rest_client.py --config /freqtrade/user_data/config.json --config /freqtrade/user_data/dev_env/config_dev_6.json ping | grep -q pong"]
+      interval: 30s
+      timeout: 4s
+      retries: 3
+  freqtrade7:
+    image: freqtradeorg/freqtrade:2021.8
+    container_name: freqtrade7
+    restart: on-failure
+    ports:
+      - 7087:7087
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    environment:
+    - FREQTRADE__API_SERVER__LISTEN_PORT=7087
+    command: >
+      trade 
+      --logfile /freqtrade/user_data/logs/freqtrade_7.log
+      --db-url sqlite:////freqtrade/user_data/dev_7.sqlite
+      --config /freqtrade/user_data/config.json
+      --config /freqtrade/user_data/dev_env/config_dev_2.json
+      --config /freqtrade/user_data/dev_env/config_dev_sl20.json
+      --strategy NostalgiaForInfinityV5MultiOffsetAndHO
+    depends_on:
+      - binance_proxy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 /freqtrade/scripts/rest_client.py --config /freqtrade/user_data/config.json --config /freqtrade/user_data/dev_env/config_dev_7.json ping | grep -q pong"]
+      interval: 30s
+      timeout: 4s
+      retries: 3
+  freqtrade8:
+    image: freqtradeorg/freqtrade:2021.8
+    container_name: freqtrade8
+    restart: on-failure
+    ports:
+      - 7088:7088
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    environment:
+    - FREQTRADE__API_SERVER__LISTEN_PORT=7088
+    command: >
+      trade 
+      --logfile /freqtrade/user_data/logs/freqtrade_8.log
+      --db-url sqlite:////freqtrade/user_data/dev_8.sqlite
+      --config /freqtrade/user_data/config.json
+      --config /freqtrade/user_data/dev_env/config_dev_3.json
+      --config /freqtrade/user_data/dev_env/config_dev_sl10.json
+      --strategy SMAOffsetProtectOptV1
+    depends_on:
+      - binance_proxy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 /freqtrade/scripts/rest_client.py --config /freqtrade/user_data/config.json --config /freqtrade/user_data/dev_env/config_dev_8.json ping | grep -q pong"]
+      interval: 30s
+      timeout: 4s
+      retries: 3
+  freqtrade9:
+    image: freqtradeorg/freqtrade:2021.8
+    container_name: freqtrade9
+    restart: on-failure
+    ports:
+      - 7089:7089
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    environment:
+    - FREQTRADE__API_SERVER__LISTEN_PORT=7089
+    command: >
+      trade 
+      --logfile /freqtrade/user_data/logs/freqtrade_9.log
+      --db-url sqlite:////freqtrade/user_data/dev_9.sqlite
+      --config /freqtrade/user_data/config.json
+      --config /freqtrade/user_data/dev_env/config_dev_3.json
+      --config /freqtrade/user_data/dev_env/config_dev_sl20.json
+      --strategy SMAOffsetProtectOptV1
+    depends_on:
+      - binance_proxy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 /freqtrade/scripts/rest_client.py --config /freqtrade/user_data/config.json --config /freqtrade/user_data/dev_env/config_dev_9.json ping | grep -q pong"]
       interval: 30s
       timeout: 4s
       retries: 3
@@ -219,6 +325,86 @@ services:
       interval: 1m
       timeout: 1s
       retries: 3
+  ftmetric6:
+    image: ghcr.io/kamontat/ftmetric:v4.3.0
+    container_name: ftmetric6
+    restart: on-failure
+    ports:
+      - 7096:7096    
+    environment:
+      - FTH_FREQTRADE__URL=http://freqtrade6:7086
+      - FTH_FREQTRADE__USERNAME=freqtrader
+      - FTH_FREQTRADE__PASSWORD=secret
+      - FTH_SERVER__PORT=7096
+      - FTH_FREQTRADE__CLUSTER=6A
+    command: --no-env-file
+    depends_on:
+      - freqtrade6
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7096/version"]
+      interval: 1m
+      timeout: 1s
+      retries: 3
+  ftmetric7:
+    image: ghcr.io/kamontat/ftmetric:v4.3.0
+    container_name: ftmetric7
+    restart: on-failure
+    ports:
+      - 7097:7097    
+    environment:
+      - FTH_FREQTRADE__URL=http://freqtrade7:7087
+      - FTH_FREQTRADE__USERNAME=freqtrader
+      - FTH_FREQTRADE__PASSWORD=secret
+      - FTH_SERVER__PORT=7097
+      - FTH_FREQTRADE__CLUSTER=7A
+    command: --no-env-file
+    depends_on:
+      - freqtrade7
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7097/version"]
+      interval: 1m
+      timeout: 1s
+      retries: 3
+  ftmetric8:
+    image: ghcr.io/kamontat/ftmetric:v4.3.0
+    container_name: ftmetric8
+    restart: on-failure
+    ports:
+      - 7098:7098
+    environment:
+      - FTH_FREQTRADE__URL=http://freqtrade8:7088
+      - FTH_FREQTRADE__USERNAME=freqtrader
+      - FTH_FREQTRADE__PASSWORD=secret
+      - FTH_SERVER__PORT=7098
+      - FTH_FREQTRADE__CLUSTER=8A
+    command: --no-env-file
+    depends_on:
+      - freqtrade8
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7098/version"]
+      interval: 1m
+      timeout: 1s
+      retries: 3
+  ftmetric9:
+    image: ghcr.io/kamontat/ftmetric:v4.3.0
+    container_name: ftmetric9
+    restart: on-failure
+    ports:
+      - 7099:7099
+    environment:
+      - FTH_FREQTRADE__URL=http://freqtrade9:7089
+      - FTH_FREQTRADE__USERNAME=freqtrader
+      - FTH_FREQTRADE__PASSWORD=secret
+      - FTH_SERVER__PORT=7099
+      - FTH_FREQTRADE__CLUSTER=9A
+    command: --no-env-file
+    depends_on:
+      - freqtrade9
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7099/version"]
+      interval: 1m
+      timeout: 1s
+      retries: 3
   prometheus:
     image: prom/prometheus:latest
     restart: on-failure
@@ -235,7 +421,11 @@ services:
       - ftmetric2
       - ftmetric3  
       - ftmetric4  
-      - ftmetric5            
+      - ftmetric5
+      - ftmetric6
+      - ftmetric7  
+      - ftmetric8  
+      - ftmetric9            
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     extra_hosts:

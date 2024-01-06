@@ -2,23 +2,39 @@ global:
   scrape_interval: 1m
   scrape_timeout: 5s
 scrape_configs:
-  - job_name: freqtrade1
+  - job_name: Combined_NFIv7_SMA
     static_configs:
       - targets:
         - "ftmetric1:7091"
-  - job_name: freqtrade2
+  - job_name: NostalgiaForInfinityV5MultiOffsetAndHO
     static_configs:
       - targets:
         - "ftmetric2:7092"
-  - job_name: freqtrade3
+  - job_name: SMAOffsetProtectOptV1
     static_configs:
       - targets:
         - "ftmetric3:7093"
-  - job_name: freqtrade4
+  - job_name: Combined_NFIv7_SMA-SL10
     static_configs:
       - targets:
         - "ftmetric4:7094"
-  - job_name: freqtrade5
+  - job_name: Combined_NFIv7_SMA-SL20
     static_configs:
       - targets:
         - "ftmetric5:7095"
+  - job_name: NostalgiaForInfinityV5MultiOffsetAndHO-SL10
+    static_configs:
+      - targets:
+        - "ftmetric6:7096"
+  - job_name: NostalgiaForInfinityV5MultiOffsetAndHO-SL20
+    static_configs:
+      - targets:
+        - "ftmetric7:7097"
+  - job_name: SMAOffsetProtectOptV1-SL10
+    static_configs:
+      - targets:
+        - "ftmetric8:7098"
+  - job_name: SMAOffsetProtectOptV1-SL20
+    static_configs:
+      - targets:
+        - "ftmetric9:7099"
