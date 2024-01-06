@@ -258,13 +258,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "freqtrade_pair_performance_profit_pct{job=\"freqtrade\"}",
+          "expr": "freqtrade_pair_performance_profit_pct{job=\"freqtrade1\"}",
           "interval": "",
           "legendFormat": "{{pair}}",
           "refId": "A"
         }
       ],
-      "title": "Avg profit per pair freqtrade",
+      "title": "Avg profit per pair freqtrade1",
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -483,16 +484,17 @@
           "interval": "",
           "legendFormat": "{{job}}",
           "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(freqtrade_pair_performance_profit_abs{})",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "total",
-          "refId": "B"
         }
+        // ,
+        // {
+        //   "exemplar": true,
+        //   "expr": "sum(freqtrade_pair_performance_profit_abs{})",
+        //   "hide": true,
+        //   "instant": false,
+        //   "interval": "",
+        //   "legendFormat": "total",
+        //   "refId": "B"
+        // }
       ],
       "title": "Profit",
       "transformations": [],
@@ -574,6 +576,7 @@
         {
           "exemplar": true,
           "expr": "sum(avg by(job)(freqtrade_fiat_balance{}))",
+          "hide": true,
           "interval": "",
           "legendFormat": "kum",
           "refId": "A"
