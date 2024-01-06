@@ -233,7 +233,9 @@ services:
     depends_on:
       - ftmetric1
       - ftmetric2
-      - ftmetric3            
+      - ftmetric3  
+      - ftmetric4  
+      - ftmetric5            
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     extra_hosts:
